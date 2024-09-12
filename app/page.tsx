@@ -1,21 +1,45 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Dashboard from "./dashboard/page";
-import SuperAdmin from "./_components/SuperAdmin";
-import useAuth from "@/hooks/useAuth";
+import SuperAdmin from "./_components/SuperAdminLogin";
+import AuthContext from "@/context/useAuth";
 import { useRouter } from "next/navigation";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import OrganisationAdminLogin from "./_components/OrganisationAdminLogin";
 
 export default function Home() {
-    const { isAuthorised, loading } = useAuth();
     const router = useRouter();
-    // if(isAuthorised && !loading){
-    //     router.push('/dashboard');
-    // }
+    const authContext = useContext(AuthContext);
+    const { user } = authContext;
+
+    if (user) {
+        router.push("/dashboard");
+    }
+
+    console.log('user', user)
+
     return (
-        <div>
-            <SuperAdmin />
+        <div className="flex items-center justify-center h-screen w-screen">
+            <div className="w-1/2">
+                <Tabs defaultValue="account" className="">
+                    <TabsList className="w-full">
+                        <TabsTrigger value="account" className="w-full">
+                            Account
+                        </TabsTrigger>
+                        <TabsTrigger value="password" className="w-full">
+                            Password
+                        </TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="account">
+                        <SuperAdmin />
+                    </TabsContent>
+                    <TabsContent value="password">
+                        <OrganisationAdminLogin/>
+                    </TabsContent>
+                </Tabs>
+            </div>
         </div>
     );
 }

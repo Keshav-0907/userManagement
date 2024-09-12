@@ -8,12 +8,24 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import axios from "axios";
 import AddMember from "../_components/AddMember";
+import AuthContext from "@/context/useAuth";
+import { useContext } from "react";
+import { useRouter } from "next/navigation";
 
 const Organisation = () => {
+    const router = useRouter();
     const { id } = useParams();
     const [isLoading, setIsLoading] = useState(false);
     const [orgData, setOrgData] = useState(null);
     const [members, setMembers] = useState([]);
+    const authContext = useContext(AuthContext);
+
+    const { user, loading } = authContext;
+
+    if (!user && !loading) {
+        router.push("/");
+        return;
+    }
 
     const fetchOrganisation = async () => {
         setIsLoading(true);

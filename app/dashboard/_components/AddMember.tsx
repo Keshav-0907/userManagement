@@ -69,7 +69,7 @@ const AddMember = ({ orgID, updateMembers }) => {
                     placeholder="Email"
                 />
 
-                <div onClick={handleAddMember}> Add Member </div>
+                <Button onClick={handleAddMember}> Add Member </Button>
             </DialogContent>
         </Dialog>
     );

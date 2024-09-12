@@ -1,53 +1,32 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation"; // Import useRouter from next/navigation
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import AuthContext from "@/context/useAuth";
 
 const SuperAdminLogin = () => {
+    const authContext = useContext(AuthContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
-    const router = useRouter(); // Initialize router for navigation
+    const router = useRouter();
+    const { login } = authContext;
 
     const handleAdminLogin = async (e) => {
         e.preventDefault();
-        setError(null); // Reset error state on form submission
-
-        try {
-            const response = await axios.post("/api/superadmin/login", {
-                email,
-                password,
-            });
-            console.log(response.data);
-
-            if (response.data.status === true) { // Use === for comparison
-                localStorage.setItem("superAdminToken", response.data.token);
-                toast.success("Login successful. Redirecting to dashboard...");
-                setTimeout(() => {
-                    router.push("/dashboard");
-                }, 1000);
-            } else {
-                setError("Login failed. Please check your credentials.");
-                toast.error("Login failed");
-            }
-
-        } catch (error) {
-            toast.error("Login failed");
-            console.error("Login failed:", error);
-        }
+        login(email, password);
     };
-
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
+        <div className="flex items-center justify-center w-full">
+            <div className="w-full p-8 space-y-6 bg-white rounded-lg shadow-lg">
                 <div className="text-2xl font-semibold text-center text-gray-800">
                     SuperAdmin Login
                 </div>
                 {error && <p className="text-red-500 text-center">{error}</p>}
-                <form onSubmit={handleAdminLogin} className="space-y-4"> {/* Changed div to form */}
+                <form onSubmit={handleAdminLogin} className="space-y-4">
                     <Input
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}

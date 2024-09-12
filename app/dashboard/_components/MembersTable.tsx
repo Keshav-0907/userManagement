@@ -47,7 +47,7 @@ const MembersTable = ({
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {membersData.length > 0 ? ( // Check if membersData has any items
+                {membersData?.length > 0 ? ( // Check if membersData has any items
                     membersData.map((member) => (
                         <TableRow key={member?._id}>
                             <TableCell className="font-medium">

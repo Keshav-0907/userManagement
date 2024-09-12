@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
         });
     }
 
-    const token = jwt.sign({ email }, "secret");
+    const token = jwt.sign({ isAdmin }, "secret");
 
     return NextResponse.json({
         message: "Super Admin LoggedIn",
