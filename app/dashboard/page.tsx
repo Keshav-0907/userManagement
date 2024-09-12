@@ -23,7 +23,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!loading && !isAuthorised) {
-      router.push('/login'); // Redirect to login if not authorized
+      router.push('/'); // Redirect to login if not authorized
     }
   }, [isAuthorised, loading, router]);
 

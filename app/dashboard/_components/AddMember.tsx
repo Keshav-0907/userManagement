@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const AddMember = ({ orgID, updateMembers }) => {
     const [name, setName] = useState("");
@@ -24,9 +25,10 @@ const AddMember = ({ orgID, updateMembers }) => {
                 name: name,
                 email: email,
             });
+            console.log("res", res);
             if (res.data.status === "success") {
-                updateMembers(res.data.newMember);
-                alert("Member Added Successfully");
+                updateMembers(res.data.data);
+                toast.success("Member added successfully");
                 setName("");
                 setEmail("");
                 setIsOpen(false);
@@ -42,7 +44,13 @@ const AddMember = ({ orgID, updateMembers }) => {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger>
-                <div onClick={() => setIsOpen(true)}> Add New Member </div>
+                <div
+                    onClick={() => setIsOpen(true)}
+                    className="bg-black font-semibold text-white p-2 rounded-md"
+                >
+                    {" "}
+                    Add New Member{" "}
+                </div>
             </DialogTrigger>
             <DialogContent className="bg-white py-5">
                 <DialogHeader className="py-2">
@@ -61,7 +69,7 @@ const AddMember = ({ orgID, updateMembers }) => {
                     placeholder="Email"
                 />
 
-                <Button onClick={handleAddMember}> Add Member </Button>
+                <div onClick={handleAddMember}> Add Member </div>
             </DialogContent>
         </Dialog>
     );

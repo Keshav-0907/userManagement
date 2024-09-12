@@ -1,29 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
 import SuperAdmin from "@/models/superAdminModel";
 import connectToDB from "@/utils/connectToDB";
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
-export async function POST(req: NextRequest){
-    const {email, password} = await req.json()
-    await connectToDB()
+export async function POST(req: NextRequest) {
+    const { email, password } = await req.json();
+    await connectToDB();
 
-    const isAdmin = await SuperAdmin.findOne({email})
-    if(!isAdmin){
+    const isAdmin = await SuperAdmin.findOne({ email });
+    if (!isAdmin) {
         return NextResponse.json({
-            message: "You are not authorized to create super admin"
-        })
+            status: false,
+            message: "You are not authorized to create super admin",
+        });
     }
 
-    if(isAdmin.password !== password){
+    if (isAdmin.password !== password) {
         return NextResponse.json({
-            message: "Password is incorrect"
-        })
+            status: false,
+            message: "Password is incorrect",
+        });
     }
 
-    const token = jwt.sign({email}, 'secret')
+    const token = jwt.sign({ email }, "secret");
 
     return NextResponse.json({
         message: "Super Admin LoggedIn",
-        token
-    })
+        token,
+        staus: true
+    });
 }

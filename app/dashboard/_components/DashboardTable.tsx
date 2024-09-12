@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/table";
 import axios from "axios";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const DashboardTable = ({ organisations }) => {
     // Function to handle viewing full organization details
@@ -63,18 +64,20 @@ const DashboardTable = ({ organisations }) => {
                         </TableCell>
                         <TableCell className="text-right space-x-2">
                             <Link
-                            target="_blank"
-                                className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                                // target="_blank"
+                                className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600"
                                 href={`/dashboard/${org._id}`}
                             >
                                 View Members
                             </Link>
-                            <button
-                                onClick={() => handleDeleteOrganization(org._id)}
+                            <Button
+                                onClick={() =>
+                                    handleDeleteOrganization(org._id)
+                                }
                                 className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                             >
                                 Delete
-                            </button>
+                            </Button>
                         </TableCell>
                     </TableRow>
                 ))}

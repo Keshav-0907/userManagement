@@ -39,6 +39,10 @@ const Organisation = () => {
         setMembers([...members, newMember]);
     };
 
+    const handleMemberDelete = (deletedMemberId) => {
+        setMembers(members.filter(member => member._id !== deletedMemberId));
+    };
+
     if (isLoading) {
         return <div>Loading...</div>;
     }
@@ -61,9 +65,14 @@ const Organisation = () => {
 
                     <AddMember orgID={id} updateMembers={updateMembers} />
                 </div>
-                <OptionsBar />
+                <OptionsBar setSearchTerm={() => {}} setSortOption={() => {}} />
                 <div className="border rounded-xl p-2">
-                    <MembersTable membersData={members} orgID={id}/>
+                    <MembersTable 
+                        membersData={members} 
+                        orgID={id}
+                        onMemberDelete={handleMemberDelete}
+                        updateMembers={updateMembers}
+                    />
                 </div>
             </div>
         </div>

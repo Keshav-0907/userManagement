@@ -10,8 +10,6 @@ import { useRouter } from "next/navigation";
 export default function Home() {
     const { isAuthorised, loading } = useAuth();
     const router = useRouter();
-    console.log("hhehe", isAuthorised);
-
     // if(isAuthorised && !loading){
     //     router.push('/dashboard');
     // }
