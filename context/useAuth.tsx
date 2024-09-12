@@ -4,6 +4,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { User, JWTTokenPayload } from "../types";
 import { StringExpression } from "mongoose";
+import toast from "react-hot-toast";
 
 interface AuthContextProps {
     user: User | null;
@@ -61,10 +62,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
                 });
                 console.log("Login successful", decoded);
             }
+            toast.success("Hey! SuperAdmin");
             setLoading(false);
         } catch (error) {
             setLoading(true);
             console.error("Login failed", error);
+            toast.error("Login failed");
             setLoading(false);
         }
     };
@@ -74,6 +77,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         localStorage.removeItem("token");
         setUser(null);
         setLoading(false);
+        toast.success("Logged out successfully");
         window.location.reload();
     };
 

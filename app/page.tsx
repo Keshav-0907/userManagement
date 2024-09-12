@@ -26,10 +26,10 @@ export default function Home() {
                 <Tabs defaultValue="account" className="">
                     <TabsList className="w-full">
                         <TabsTrigger value="account" className="w-full">
-                            Account
+                            Super Admin Login
                         </TabsTrigger>
                         <TabsTrigger value="password" className="w-full">
-                            Password
+                            Organisation Admin Login
                         </TabsTrigger>
                     </TabsList>
                     <TabsContent value="account">

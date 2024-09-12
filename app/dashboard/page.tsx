@@ -10,6 +10,8 @@ import { useContext } from "react";
 import AuthContext from "@/context/useAuth";
 import MembersTable from "./_components/MembersTable";
 import AddMember from "./_components/AddMember";
+import Stats from "./_components/Stats";
+import { toast } from "react-hot-toast";
 
 const Dashboard = () => {
     const authContext = useContext(AuthContext);
@@ -67,7 +69,7 @@ const Dashboard = () => {
                 adminName: "",
                 adminEmail: "",
             });
-            alert("Organisation added successfully");
+            toast.success("Organisation added successfully");
         }
     };
 
@@ -125,25 +127,45 @@ const Dashboard = () => {
     });
 
     const handleMemberDelete = (deletedMemberId) => {
-        setMembers(members.filter(member => member._id !== deletedMemberId));
+        setMembers(members.filter((member) => member._id !== deletedMemberId));
+    };
+
+    const handleDeleteOrganization = async (organizationId) => {
+        const res = await axios.post("/api/organisation/deleteorg", {
+            id: organizationId,
+        });
+
+        if (res.data.status === "success") {
+            toast.success("Organization deleted successfully");
+        } else {
+            toast.error("Error deleting organization");
+        }
     };
 
     return (
         <div className="p-3">
             <div className="flex justify-between items-center mb-4 w-full">
                 {user && user.role === "superadmin" ? (
-                    <div> All Organisations </div>
+                    <div>
+                        <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+                            <div className="text-xl font-semibold text-gray-800">
+                                All Organisations
+                            </div>
+                        </div>
+                    </div>
                 ) : (
                     <div className="flex justify-between w-full">
-                      <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-    <div className="text-xl font-semibold text-gray-800">
-        All Members of {orgData?.name}
-    </div>
-    <div className="mt-2 text-lg text-gray-600">
-        Total Members: <span className="font-bold text-gray-800">{orgData?.membersCount}</span>
-    </div>
-</div>
-
+                        <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+                            <div className="text-xl font-semibold text-gray-800">
+                                All Members of {orgData?.name}
+                            </div>
+                            <div className="mt-2 text-lg text-gray-600">
+                                Total Members:{" "}
+                                <span className="font-bold text-gray-800">
+                                    {orgData?.membersCount - 1}
+                                </span>
+                            </div>
+                        </div>
 
                         <div>
                             <AddMember
@@ -161,6 +183,13 @@ const Dashboard = () => {
                     />
                 )}
             </div>
+            {/* {
+                user && user.role === "superadmin" && (
+                <div>
+                    <Stats/>
+                </div>
+                )
+            } */}
             <OptionsBar
                 setSearchTerm={setSearchTerm}
                 setSortOption={setSortOption}
@@ -168,7 +197,10 @@ const Dashboard = () => {
 
             {user && user.role === "superadmin" ? (
                 <div className="border rounded-xl p-2">
-                    <DashboardTable organisations={sortedOrganisations} />
+                    <DashboardTable
+                        organisations={sortedOrganisations}
+                        onDeleteOrganization={handleDeleteOrganization}
+                    />
                 </div>
             ) : (
                 <div>

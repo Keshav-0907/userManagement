@@ -27,15 +27,12 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <time dateTime="2016-10-25" suppressHydrationWarning />
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
                 <AuthProvider>
-                    <div>
-                        {children}
-                        {/* <Toaster /> */}
-                    </div>
+                    {children}
+                    <Toaster />
                 </AuthProvider>
             </body>
         </html>
