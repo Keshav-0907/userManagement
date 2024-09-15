@@ -183,18 +183,19 @@ const Dashboard = () => {
                     />
                 )}
             </div>
-            {/* {
+            {
                 user && user.role === "superadmin" && (
                 <div>
                     <Stats/>
                 </div>
                 )
-            } */}
-            <OptionsBar
-                setSearchTerm={setSearchTerm}
-                setSortOption={setSortOption}
-            />
-
+            }
+            <div className="p-2">
+                <OptionsBar
+                    setSearchTerm={setSearchTerm}
+                    setSortOption={setSortOption}
+                />
+            </div>
             {user && user.role === "superadmin" ? (
                 <div className="border rounded-xl p-2">
                     <DashboardTable

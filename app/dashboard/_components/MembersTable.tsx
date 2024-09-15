@@ -35,7 +35,7 @@ const MembersTable = ({
     };
 
     return (
-        <Table>
+        <Table className="bg-white rounded-lg">
             <TableHeader>
                 <TableRow>
                     <TableHead>ID</TableHead>

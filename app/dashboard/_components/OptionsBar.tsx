@@ -22,7 +22,7 @@ const OptionsBar = ({ setSearchTerm, setSortOption }) => {
   };
 
   return (
-    <div className="flex gap-5 py-5">
+    <div className="flex gap-5 p-2 rounded-lg bg-white">
       <Input placeholder="Search" onChange={handleSearchChange} />
       <Select onValueChange={handleSortByMembers}>
         <SelectTrigger className="w-[500px]">

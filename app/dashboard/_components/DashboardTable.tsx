@@ -33,7 +33,7 @@ const DashboardTable = ({ organisations, onDeleteOrganization }) => {
     console.log("organisations", organisations);
 
     return (
-        <Table>
+        <Table className="bg-white rounded-lg">
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-[150px]">Organization</TableHead>
@@ -48,7 +48,7 @@ const DashboardTable = ({ organisations, onDeleteOrganization }) => {
             <TableBody>
                 {organisations.length > 0 ? (
                     organisations.map((org) => (
-                        <TableRow key={org._id}>
+                        <TableRow key={org._id} className="text-sm">
                             <TableCell className="font-medium">
                                 {org.name}
                             </TableCell>

@@ -6,11 +6,14 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import AuthContext from "@/context/useAuth";
+import { Mail, Lock, Eye, EyeOff } from "lucide-react"; // Import Eye icons
+import Link from "next/link";
 
 const SuperAdminLogin = () => {
     const authContext = useContext(AuthContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false); // Add showPassword state
     const [error, setError] = useState(null);
     const router = useRouter();
     const { login } = authContext;
@@ -19,35 +22,58 @@ const SuperAdminLogin = () => {
         e.preventDefault();
         login(email, password);
     };
+
     return (
-        <div className="flex items-center justify-center w-full">
-            <div className="w-full p-8 space-y-6 bg-white rounded-lg shadow-lg">
-                <div className="text-2xl font-semibold text-center text-gray-800">
-                    SuperAdmin Login
+        <div className="p-10 flex">
+            <div className="w-1/2 flex justify-center items-center flex-col gap-5">
+                <div className="flex flex-col text-center">
+                    <div className="text-5xl font-semibold">Welcome Back</div>
+                    <div className="font-medium">Super Admin</div>
+                    <div className="text-sm text-gray-400">
+                        We are glad to see you back with us
+                    </div>
                 </div>
-                {error && <p className="text-red-500 text-center">{error}</p>}
-                <form onSubmit={handleAdminLogin} className="space-y-4">
-                    <Input
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Email ID"
-                        type="email"
-                        className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <Input
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Password"
-                        type="password"
-                        className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <Button
-                        type="submit" // Changed onClick to type="submit" in form
-                        className="w-full py-2 mt-4 text-white transition-colors duration-200 bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    >
-                        Submit
-                    </Button>
-                </form>
+
+                <div className="flex flex-col gap-3 w-full justify-center items-center">
+                    <div className="bg-[#F2F2F2] flex p-2 items-center gap-3 w-1/2 rounded-md">
+                        <Mail size={16} />
+                        <input
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            type="text"
+                            placeholder="Email"
+                            className="bg-[#F2F2F2] w-full focus:outline-none"
+                        />
+                    </div>
+
+                    <div className="bg-[#F2F2F2] flex p-2 items-center gap-3 w-1/2 rounded-md">
+                        <Lock size={16} />
+                        <input
+                            type={showPassword ? "text" : "password"} // Toggle password visibility
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Password"
+                            className="bg-[#F2F2F2] w-full focus:outline-none"
+                        />
+                        <button onClick={() => setShowPassword(!showPassword)}>
+                            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />} {/* Toggle icon */}
+                        </button>
+                    </div>
+
+                    <button onClick={handleAdminLogin} className="bg-black rounded-md text-white w-1/2 py-2 hover:bg-gray-800">
+                        Login
+                    </button>
+                </div>
+
+                <div>
+                    Login as a Organisation Admin?{" "}
+                    <Link href="/organisationLogin" className="text-blue-500">
+                        Click here
+                    </Link>
+                </div>
+            </div>
+            <div className="w-1/2">
+                <img src="/loginImg.png" alt="loginImg" />
             </div>
         </div>
     );

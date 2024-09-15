@@ -17,39 +17,31 @@ const DashboardHeader = () => {
     const { loading, logout, user } = authContext || {};
 
     return (
-        <div>
-            {loading ? (
-                <div>Loading</div>
-            ) : (
-                <div className="flex justify-end p-2 items-center gap-2 border-b-2 shadow-md">
-                    <DropdownMenu>
-                        <DropdownMenuTrigger className="flex items-center gap-2 bg-gray-200 p-1 rounded-lg">
-                            <Avatar className="flex justify-end h-8 w-8">
-                                <AvatarImage
-                                    src="https://github.com/shadcn.png"
-                                    className=""
-                                />
-                                <AvatarFallback>CN</AvatarFallback>
-                            </Avatar>
-                            {user && user.role === "superadmin" ? (
-                                <Label>Hi, Super Admin</Label>
-                            ) : (
-                                <Label>Hi, Organisation Admin</Label>
-                            )}
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <DropdownMenuLabel>
-                                Account Options
-                            </DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>Settings</DropdownMenuItem>
-                            <DropdownMenuItem onClick={logout}>
-                                Log Out
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
-            )}
+        <div className="flex justify-end p-2 items-center gap-2 border-b-2 rounded-lg bg-[#034F75]">
+            <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-2 bg-gray-200 p-1 rounded-lg">
+                    <Avatar className="flex justify-end h-8 w-8">
+                        <AvatarImage
+                            src="https://github.com/shadcn.png"
+                            className=""
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    {user && user.role === "superadmin" ? (
+                        <Label>Hi, Super Admin</Label>
+                    ) : (
+                        <Label>Hi, Organisation Admin</Label>
+                    )}
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuLabel>Account Options</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Settings</DropdownMenuItem>
+                    <DropdownMenuItem onClick={logout}>
+                        Log Out
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
         </div>
     );
 };

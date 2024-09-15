@@ -20,7 +20,7 @@ const AddOrganisation = ({ setFormData, formData, handleNewOrg }) => {
     return (
         <Dialog>
             <DialogTrigger>
-               <div className="bg-black text-white rounded-md p-2 font-semibold">
+               <div className="bg-[#034F75] text-white rounded-md p-2 font-semibold">
                Add Organisation
                </div>
             </DialogTrigger>
@@ -49,7 +49,7 @@ const AddOrganisation = ({ setFormData, formData, handleNewOrg }) => {
                             type="email"
                             placeholder="Organisation Admin Email"
                         />
-                        <Button onClick={handleNewOrg}>Add Organisation</Button>
+                        <Button className="bg-[#034F75]" onClick={handleNewOrg}>Add Organisation</Button>
                     </DialogDescription>
                 </DialogHeader>
             </DialogContent>
